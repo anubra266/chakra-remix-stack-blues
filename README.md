@@ -28,7 +28,7 @@ Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --
 
 ## Development
 
-- Start the Postgres Database in [Docker](https://www.docker.com/get-started):
+- Start the Postgres Database in [Docker](https://www.docker.com/get-started) (optional):
 
   ```sh
   npm run docker
