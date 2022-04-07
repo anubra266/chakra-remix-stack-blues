@@ -4,6 +4,6 @@ const borders = {
   "2px": "2px solid",
   "4px": "4px solid",
   "8px": "8px solid",
-}
+};
 
-export default borders
+export default borders;

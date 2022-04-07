@@ -7,6 +7,6 @@ const blur = {
   xl: "24px",
   "2xl": "40px",
   "3xl": "64px",
-}
+};
 
-export default blur
+export default blur;
