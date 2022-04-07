@@ -4,6 +4,8 @@
 
 Learn more about [Remix Stacks](https://remix.run/stacks).
 
+## Usage 
+
 ```
 npx create-remix --template anubra266/chakra-remix-stack-blues
 ```
