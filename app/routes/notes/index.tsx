@@ -1,12 +1,12 @@
-import { Link } from "@remix-run/react";
+import { ChakraRemixLink } from "~/components/factory";
 
 export default function NoteIndexPage() {
   return (
     <p>
       No note selected. Select a note on the left, or{" "}
-      <Link to="new" className="text-blue-500 underline">
+      <ChakraRemixLink to="new" color="blue.500" textDecor="underline">
         create a new note.
-      </Link>
+      </ChakraRemixLink>
     </p>
   );
 }

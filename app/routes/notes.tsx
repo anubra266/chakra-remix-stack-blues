@@ -2,9 +2,20 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  List,
+  ListItem,
+  Stack,
+  chakra,
+} from "@chakra-ui/react";
 import { requireUserId } from "~/session.server";
 import { useUser } from "~/utils";
 import { getNoteListItems } from "~/models/note.server";
+import { ChakraRemixLink } from "~/components/factory";
 
 type LoaderData = {
   noteListItems: Awaited<ReturnType<typeof getNoteListItems>>;
@@ -21,54 +32,65 @@ export default function NotesPage() {
   const user = useUser();
 
   return (
-    <div className="flex h-full min-h-screen flex-col">
-      <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
-        <h1 className="text-3xl font-bold">
+    <Flex h="full" minH="screenY" direction="column">
+      <Flex
+        as="header"
+        align="center"
+        justify="space-between"
+        bg="slategrey"
+        color="white"
+        p="2"
+      >
+        <Heading fontSize="3xl">
           <Link to=".">Notes</Link>
-        </h1>
+        </Heading>
         <p>{user.email}</p>
         <Form action="/logout" method="post">
-          <button
-            type="submit"
-            className="rounded bg-slate-600 py-2 px-4 text-blue-100 hover:bg-blue-500 active:bg-blue-600"
-          >
+          <Button type="submit" colorScheme="red" size="sm">
             Logout
-          </button>
+          </Button>
         </Form>
-      </header>
+      </Flex>
 
-      <main className="flex h-full bg-white">
-        <div className="h-full w-80 border-r bg-gray-50">
-          <Link to="new" className="block p-4 text-xl text-blue-500">
+      <Flex as="main" h="full" bg="white">
+        <Stack
+          h="full"
+          w="80"
+          borderRightWidth="1px"
+          bg="gray.50"
+          spacing="0"
+          divider={<Divider />}
+        >
+          <ChakraRemixLink to="new" p="4" fontSize="xl" color="blue.500">
             + New Note
-          </Link>
-
-          <hr />
+          </ChakraRemixLink>
 
           {data.noteListItems.length === 0 ? (
-            <p className="p-4">No notes yet</p>
+            <chakra.p p="4">No notes yet</chakra.p>
           ) : (
-            <ol>
+            <List>
               {data.noteListItems.map((note) => (
-                <li key={note.id}>
-                  <NavLink
-                    className={({ isActive }) =>
-                      `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`
-                    }
-                    to={note.id}
-                  >
-                    📝 {note.title}
-                  </NavLink>
-                </li>
+                <NavLink to={note.id} key={note.id}>
+                  {({ isActive }) => (
+                    <ListItem
+                      p="4"
+                      bg={isActive ? "white" : ""}
+                      borderBottomWidth="1px"
+                      fontSize="xl"
+                    >
+                      📝 {note.title}
+                    </ListItem>
+                  )}
+                </NavLink>
               ))}
-            </ol>
+            </List>
           )}
-        </div>
+        </Stack>
 
-        <div className="flex-1 p-6">
+        <chakra.div flex="1" p="6">
           <Outlet />
-        </div>
-      </main>
-    </div>
+        </chakra.div>
+      </Flex>
+    </Flex>
   );
 }

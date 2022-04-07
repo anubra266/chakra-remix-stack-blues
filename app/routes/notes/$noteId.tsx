@@ -1,3 +1,4 @@
+import { Button, Divider, Heading, chakra } from "@chakra-ui/react";
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useCatch, useLoaderData } from "@remix-run/react";
@@ -37,16 +38,13 @@ export default function NoteDetailsPage() {
 
   return (
     <div>
-      <h3 className="text-2xl font-bold">{data.note.title}</h3>
-      <p className="py-6">{data.note.body}</p>
-      <hr className="my-4" />
+      <Heading fontSize="2xl">{data.note.title}</Heading>
+      <chakra.p py="6">{data.note.body}</chakra.p>
+      <Divider my="4" />
       <Form method="post">
-        <button
-          type="submit"
-          className="rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-        >
+        <Button type="submit" colorScheme="red">
           Delete
-        </button>
+        </Button>
       </Form>
     </div>
   );

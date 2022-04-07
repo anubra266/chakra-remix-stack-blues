@@ -4,13 +4,23 @@ import type {
   MetaFunction,
 } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, Link, useActionData, useSearchParams } from "@remix-run/react";
+import { Form, useActionData, useSearchParams } from "@remix-run/react";
 import * as React from "react";
 
-import { getUserId, createUserSession } from "~/session.server";
+import {
+  Button,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  chakra,
+} from "@chakra-ui/react";
+import { createUserSession, getUserId } from "~/session.server";
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { validateEmail } from "~/utils";
+import { ChakraRemixLink } from "~/components/factory";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -79,7 +89,7 @@ export const meta: MetaFunction = () => {
 export default function Join() {
   const [searchParams] = useSearchParams();
   const redirectTo = searchParams.get("redirectTo") ?? undefined;
-  const actionData = useActionData() as ActionData;
+  const actionData = useActionData() as ActionData | undefined;
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
 
@@ -92,18 +102,22 @@ export default function Join() {
   }, [actionData]);
 
   return (
-    <div className="flex min-h-full flex-col justify-center">
-      <div className="mx-auto w-full max-w-md px-8">
+    <Flex minH="full" direction="column" justify="center">
+      <chakra.div mx="auto" w="full" maxW="md" px="8">
         <Form method="post" className="space-y-6" noValidate>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+          <Flex direction="column" gap="6">
+            <FormControl
+              isInvalid={actionData?.errors?.email ? true : undefined}
             >
-              Email address
-            </label>
-            <div className="mt-1">
-              <input
+              <FormLabel
+                htmlFor="email"
+                fontSize="sm"
+                fontWeight="medium"
+                color="gray.700"
+              >
+                Email address
+              </FormLabel>
+              <Input
                 ref={emailRef}
                 id="email"
                 required
@@ -111,67 +125,55 @@ export default function Join() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                aria-invalid={actionData?.errors?.email ? true : undefined}
-                aria-describedby="email-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                mt="1"
               />
-              {actionData?.errors?.email && (
-                <div className="pt-1 text-red-700" id="email-error">
-                  {actionData.errors.email}
-                </div>
-              )}
-            </div>
-          </div>
+              <FormErrorMessage>{actionData?.errors?.email}</FormErrorMessage>
+            </FormControl>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+            <FormControl
+              isInvalid={actionData?.errors?.password ? true : undefined}
             >
-              Password
-            </label>
-            <div className="mt-1">
-              <input
+              <FormLabel
+                htmlFor="password"
+                fontSize="sm"
+                fontWeight="medium"
+                color="gray.700"
+              >
+                Password
+              </FormLabel>
+              <Input
                 id="password"
                 ref={passwordRef}
                 name="password"
                 type="password"
                 autoComplete="new-password"
-                aria-invalid={actionData?.errors?.password ? true : undefined}
-                aria-describedby="password-error"
-                className="w-full rounded border border-gray-500 px-2 py-1 text-lg"
+                mt="1"
               />
-              {actionData?.errors?.password && (
-                <div className="pt-1 text-red-700" id="password-error">
-                  {actionData.errors.password}
-                </div>
-              )}
-            </div>
-          </div>
+              <FormErrorMessage>
+                {actionData?.errors?.password}
+              </FormErrorMessage>
+            </FormControl>
 
-          <input type="hidden" name="redirectTo" value={redirectTo} />
-          <button
-            type="submit"
-            className="w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400"
-          >
-            Create Account
-          </button>
-          <div className="flex items-center justify-center">
-            <div className="text-center text-sm text-gray-500">
+            <input type="hidden" name="redirectTo" value={redirectTo} />
+            <Button type="submit" colorScheme="blue">
+              Create Account
+            </Button>
+            <chakra.div textAlign="center" fontSize="sm" color="gray.500">
               Already have an account?{" "}
-              <Link
-                className="text-blue-500 underline"
+              <ChakraRemixLink
+                color="blue.500"
+                textDecor="underline"
                 to={{
                   pathname: "/login",
                   search: searchParams.toString(),
                 }}
               >
                 Log in
-              </Link>
-            </div>
-          </div>
+              </ChakraRemixLink>
+            </chakra.div>
+          </Flex>
         </Form>
-      </div>
-    </div>
+      </chakra.div>
+    </Flex>
   );
 }

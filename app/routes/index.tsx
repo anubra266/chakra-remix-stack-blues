@@ -1,70 +1,122 @@
-import { Link } from "@remix-run/react";
+import { Button, Flex, Heading, Image, chakra } from "@chakra-ui/react";
 
 import { useOptionalUser } from "~/utils";
+import { ChakraRemixLink } from "~/components/factory";
 
 export default function Index() {
   const user = useOptionalUser();
   return (
-    <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-      <div className="relative sm:pb-16 sm:pt-8">
-        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="relative shadow-xl sm:overflow-hidden sm:rounded-2xl">
-            <div className="absolute inset-0">
-              <img
-                className="h-full w-full object-cover"
+    <chakra.main
+      pos="relative"
+      minH="screenY"
+      bg="white"
+      display={{ sm: "flex" }}
+      alignItems={{ sm: "center" }}
+      justifyContent={{ sm: "center" }}
+    >
+      <chakra.div pos="relative" pb={{ sm: 16 }} pt={{ sm: 8 }}>
+        <chakra.div mx="auto" maxW="7xl" px={{ sm: 6, lg: 8 }}>
+          <chakra.div
+            pos="relative"
+            shadow="xl"
+            overflow={{ sm: "hidden" }}
+            rounded={{ sm: "2xl" }}
+          >
+            <chakra.div pos="absolute" inset={0}>
+              <Image
+                objectFit="cover"
+                boxSize="full"
                 src="https://user-images.githubusercontent.com/1500684/158276320-c46b661b-8eff-4a4d-82c6-cf296c987a12.jpg"
                 alt="BB King playing blues on his Les Paul guitar"
               />
-              <div className="absolute inset-0 bg-[color:rgba(27,167,254,0.5)] mix-blend-multiply" />
-            </div>
-            <div className="lg:pb-18 relative px-4 pt-16 pb-8 sm:px-6 sm:pt-24 sm:pb-14 lg:px-8 lg:pt-32">
-              <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
-                <span className="block uppercase text-blue-500 drop-shadow-md">
+              <chakra.div
+                pos="absolute"
+                inset={0}
+                mixBlendMode="multiply"
+                bg="rgba(27,167,254,0.5)"
+              />
+            </chakra.div>
+            <chakra.div
+              pos="relative"
+              pb={{ base: 8, sm: 14, lg: 18 }}
+              px={{ base: 4, sm: 6, lg: 8 }}
+              pt={{ base: 16, sm: 24, lg: 32 }}
+            >
+              <Heading
+                textAlign="center"
+                fontSize={{ base: "6xl", sm: "8xl", lg: "9xl" }}
+                fontWeight="extrabold"
+                letterSpacing="tight"
+              >
+                <chakra.span
+                  display="block"
+                  textTransform="uppercase"
+                  color="blue.500"
+                  dropShadow="md"
+                >
                   Blues Stack
-                </span>
-              </h1>
-              <p className="mx-auto mt-6 max-w-lg text-center text-xl text-white sm:max-w-3xl">
+                </chakra.span>
+              </Heading>
+              <chakra.p
+                mx="auto"
+                mt="6"
+                textAlign="center"
+                fontSize="xl"
+                color="white"
+                maxW={{ base: "lg", sm: "3xl" }}
+              >
                 Check the README.md file for instructions on how to get this
                 project deployed.
-              </p>
-              <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
+              </chakra.p>
+              <chakra.div
+                mx="auto"
+                mt="10"
+                maxW={{ base: "sm", sm: "none" }}
+                display={{ sm: "flex" }}
+                justifyContent={{ sm: "center" }}
+              >
                 {user ? (
-                  <Link
-                    to="/notes"
-                    className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-blue-700 shadow-sm hover:bg-blue-50 sm:px-8"
-                  >
+                  <Button as={ChakraRemixLink} to="/notes">
                     View Notes for {user.email}
-                  </Link>
+                  </Button>
                 ) : (
-                  <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
-                    <Link
-                      to="/join"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-blue-700 shadow-sm hover:bg-blue-50 sm:px-8"
-                    >
+                  <Flex
+                    direction={{ base: "column", sm: "row" }}
+                    gap={{ base: "4", sm: "5" }}
+                    mx={{ sm: "auto" }}
+                    className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0"
+                  >
+                    <Button as={ChakraRemixLink} to="/join">
                       Sign up
-                    </Link>
-                    <Link
-                      to="/login"
-                      className="flex items-center justify-center rounded-md bg-blue-500 px-4 py-3 font-medium text-white hover:bg-blue-600  "
-                    >
+                    </Button>
+
+                    <Button as={ChakraRemixLink} to="/login" colorScheme="blue">
                       Log In
-                    </Link>
-                  </div>
+                    </Button>
+                  </Flex>
                 )}
-              </div>
+              </chakra.div>
               <a href="https://remix.run">
-                <img
+                <Image
                   src="https://user-images.githubusercontent.com/1500684/158298926-e45dafff-3544-4b69-96d6-d3bcc33fc76a.svg"
                   alt="Remix"
-                  className="mx-auto mt-16 w-full max-w-[12rem] md:max-w-[16rem]"
+                  mx="auto"
+                  mt="16"
+                  w="full"
+                  maxW={{ base: "12rem", md: "16rem" }}
                 />
               </a>
-            </div>
-          </div>
-        </div>
+            </chakra.div>
+          </chakra.div>
+        </chakra.div>
 
-        <div className="mx-auto max-w-7xl py-2 px-4 sm:px-6 lg:px-8">
-          <div className="mt-6 flex flex-wrap justify-center gap-8">
+        <chakra.div
+          mx="auto"
+          maxW="7xl"
+          px={{ base: "4", sm: "6", lg: "8" }}
+          py={{ base: "2" }}
+        >
+          <Flex mt="6" wrap="wrap" justify="center" gap="8">
             {[
               {
                 src: "https://user-images.githubusercontent.com/1500684/157764397-ccd8ea10-b8aa-4772-a99b-35de937319e1.svg",
@@ -83,8 +135,8 @@ export default function Index() {
               },
               {
                 src: "https://user-images.githubusercontent.com/1500684/157764276-a516a239-e377-4a20-b44a-0ac7b65c8c14.svg",
-                alt: "Tailwind",
-                href: "https://tailwindcss.com",
+                alt: "Chakra UI",
+                href: "https://chakra-ui.com",
               },
               {
                 src: "https://user-images.githubusercontent.com/1500684/157764454-48ac8c71-a2a9-4b5e-b19c-edef8b8953d6.svg",
@@ -122,17 +174,31 @@ export default function Index() {
                 href: "https://typescriptlang.org",
               },
             ].map((img) => (
-              <a
+              <chakra.a
                 key={img.href}
                 href={img.href}
-                className="flex h-16 w-32 justify-center p-1 grayscale transition hover:grayscale-0 focus:grayscale-0"
+                display="flex"
+                h="16"
+                w="32"
+                justifyContent="center"
+                p="1"
+                filter="grayscale(100%);"
+                _hover={{
+                  filter: "grayscale(0)",
+                }}
+                _focus={{
+                  filter: "grayscale(0)",
+                }}
+                transitionProperty="all"
+                transitionTimingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
+                transitionDuration="150"
               >
-                <img alt={img.alt} src={img.src} />
-              </a>
+                <Image alt={img.alt} src={img.src} />
+              </chakra.a>
             ))}
-          </div>
-        </div>
-      </div>
-    </main>
+          </Flex>
+        </chakra.div>
+      </chakra.div>
+    </chakra.main>
   );
 }
