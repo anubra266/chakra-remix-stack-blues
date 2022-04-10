@@ -6,8 +6,16 @@ Learn more about [Remix Stacks](https://remix.run/stacks).
 
 ## Usage 
 
-```
-npx create-remix --template anubra266/chakra-remix-stack-blues
+```sh
+//install remix template
+npx create-remix --template anubra266/chakra-remix-stack-blues --no-install
+
+// Install dependencies with yarn
+yarn
+
+//start dev server
+yarn dev
+
 ```
 
 ## What's in the stack
