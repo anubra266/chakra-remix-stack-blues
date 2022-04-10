@@ -12,10 +12,6 @@ npx create-remix --template anubra266/chakra-remix-stack-blues --no-install
 
 // Install dependencies with yarn
 yarn
-
-//start dev server
-yarn dev
-
 ```
 
 ## What's in the stack
@@ -41,7 +37,7 @@ Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --
 - Start the Postgres Database in [Docker](https://www.docker.com/get-started) (optional):
 
   ```sh
-  npm run docker
+  yarn docker
   ```
 
   > **Note:** The npm script will complete while Docker sets up the container in the background. Ensure that Docker has finished and your container is running before proceeding.
@@ -49,19 +45,19 @@ Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --
 - Initial setup:
 
   ```sh
-  npm run setup
+  yarn setup
   ```
 
 - Run the first build:
 
   ```sh
-  npm run build
+  yarn build
   ```
 
 - Start dev server:
 
   ```sh
-  npm run dev
+  yarn dev
   ```
 
 This starts your app in development mode, rebuilding assets on file changes.
