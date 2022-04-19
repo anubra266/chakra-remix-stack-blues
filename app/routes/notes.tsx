@@ -12,7 +12,7 @@ import {
   Stack,
   chakra,
 } from "@chakra-ui/react";
-import { requireUserId } from "~/session.server";
+import { requireUserId } from "~/services/session.server";
 import { useUser } from "~/utils";
 import { getNoteListItems } from "~/models/note.server";
 import { ChakraRemixLink } from "~/components/factory";

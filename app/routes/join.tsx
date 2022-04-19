@@ -16,7 +16,7 @@ import {
   Input,
   chakra,
 } from "@chakra-ui/react";
-import { createUserSession, getUserId } from "~/session.server";
+import { createUserSession, getUserId } from "~/services/session.server";
 
 import { createUser, getUserByEmail } from "~/models/user.server";
 import { validateEmail } from "~/utils";

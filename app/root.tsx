@@ -18,7 +18,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import theme from "theme";
 import { ClientStyleContext, ServerStyleContext } from "./context";
-import { getUser } from "./session.server";
+import { getUser } from "./services/session.server";
 
 interface DocumentProps {
   children: React.ReactNode;

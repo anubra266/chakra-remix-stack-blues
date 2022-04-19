@@ -12,7 +12,7 @@ import { Form, useActionData } from "@remix-run/react";
 import * as React from "react";
 
 import { createNote } from "~/models/note.server";
-import { requireUserId } from "~/session.server";
+import { requireUserId } from "~/services/session.server";
 
 type ActionData = {
   errors?: {
